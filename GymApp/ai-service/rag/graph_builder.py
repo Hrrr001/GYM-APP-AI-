@@ -127,6 +127,14 @@ class FitnessKnowledgeGraph:
             self.graph = pickle.load(f)
         loaded = np.load(emb_path, allow_pickle=True)
         self._node_embeddings = {k: loaded[k] for k in loaded.files}
+        # Re-fit the TF-IDF vectorizer so transform() works after load
+        texts = []
+        for node_id, data in self.graph.nodes(data=True):
+            text = self._node_to_text(node_id, data)
+            if text.strip():
+                texts.append(text)
+        if texts:
+            self.embedder.fit(texts)
         return True
 
     def get_stats(self) -> Dict:
