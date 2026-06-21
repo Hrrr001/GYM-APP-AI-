@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install *)",
+      "Bash(python -c \"from fastapi import FastAPI; from routers import plan_generation, fitness_qa, feedback; print\\('All imports OK'\\)\")",
+      "Bash(python main.py)",
+      "Bash(curl -s http://localhost:8000/health)",
+      "Bash(kill %1)",
+      "WebSearch",
+      "Bash(python generate_knowledge.py)"
+    ]
+  }
+}

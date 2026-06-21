@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.egg
+.env
+venv/
+.venv/
+
+# GraphRAG persistence
+graphrag_db/
+*.gpickle
+*.npz
+
+# Java
+target/
+*.class
+*.jar
+*.war
+
+# Flutter
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Sensitive
+*.log
+secrets/
