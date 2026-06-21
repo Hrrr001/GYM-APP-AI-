@@ -93,6 +93,60 @@ public class AIService {
         return answer != null ? answer.toString() : "AI服务暂时不可用，请稍后重试。";
     }
 
+    public String generateExerciseDetails(String description) {
+        Map<String, Object> body = Map.of(
+            "session_id", "legacy-" + System.currentTimeMillis(),
+            "question", "请为以下健身动作生成详细说明：训练动作、目标肌群、动作要领、安全注意事项——" + description
+        );
+        Map<String, Object> result = postForMap("/api/ai/qa/ask", body);
+        Object answer = result.get("answer");
+        return answer != null ? answer.toString() : "AI服务暂时不可用，请稍后重试。";
+    }
+
+    public String recommendExercises(String userQuery, String userProfile) {
+        Map<String, Object> body = Map.of(
+            "session_id", "legacy-" + System.currentTimeMillis(),
+            "question", "用户需求：" + userQuery + "，用户资料：" + userProfile + "，请推荐适合的健身动作。"
+        );
+        Map<String, Object> result = postForMap("/api/ai/qa/ask", body);
+        Object answer = result.get("answer");
+        return answer != null ? answer.toString() : "AI服务暂时不可用，请稍后重试。";
+    }
+
+    public String generateTrainingPlan(String userProfile, String goal, int duration) {
+        Map<String, Object> body = Map.of(
+            "goal", goal,
+            "duration", duration,
+            "additional_requirements", "用户资料：" + userProfile
+        );
+        Map<String, Object> result = postForMap("/api/ai/plan/generate", body);
+        if (result.containsKey("plan")) {
+            return result.get("plan").toString();
+        }
+        Object answer = result.get("answer");
+        return answer != null ? answer.toString() : "AI服务暂时不可用，请稍后重试。";
+    }
+
+    public String analyzeWorkoutData(String workoutData) {
+        Map<String, Object> body = Map.of(
+            "session_id", "legacy-" + System.currentTimeMillis(),
+            "question", "请分析以下训练数据并提供改进建议：" + workoutData
+        );
+        Map<String, Object> result = postForMap("/api/ai/qa/ask", body);
+        Object answer = result.get("answer");
+        return answer != null ? answer.toString() : "AI服务暂时不可用，请稍后重试。";
+    }
+
+    public String generateDietSuggestion(String userProfile, String currentDiet) {
+        Map<String, Object> body = Map.of(
+            "session_id", "legacy-" + System.currentTimeMillis(),
+            "question", "用户资料：" + userProfile + "，当前饮食：" + currentDiet + "，请生成饮食建议。"
+        );
+        Map<String, Object> result = postForMap("/api/ai/qa/ask", body);
+        Object answer = result.get("answer");
+        return answer != null ? answer.toString() : "AI服务暂时不可用，请稍后重试。";
+    }
+
     // ========================
     // 内部 HTTP 工具方法
     // ========================
